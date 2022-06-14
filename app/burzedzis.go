@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/kamilwoloszyn/burze-dzis/domain"
-	"github.com/kamilwoloszyn/burze-dzis/vxml"
+	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
 )
 
 type BurzeDzis interface {
