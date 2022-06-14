@@ -1,3 +1,3 @@
-module github.com/kamilwoloszyn/burzedzis
+module github.com/kamilwoloszyn/burze-dzis
 
 go 1.18
