@@ -35,13 +35,6 @@ type Alert struct {
 	ToDate    string
 }
 
-func (a *Alert) Validate() error {
-	if found := alertEnum(string(a.AlertName)); !found {
-		return ErrWrongAlertType
-	}
-	return nil
-}
-
 func NewAlert(
 	name string,
 	fromDate string,
@@ -59,6 +52,13 @@ func NewAlert(
 		alert.ToDate = toDate
 	}
 	return alert, nil
+}
+
+func (a *Alert) Validate() error {
+	if found := alertEnum(string(a.AlertName)); !found {
+		return ErrWrongAlertType
+	}
+	return nil
 }
 
 func alertEnum(alertName string) bool {
