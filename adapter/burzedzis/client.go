@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/kamilwoloszyn/burze-dzis/app/requestmod"
 	"github.com/kamilwoloszyn/burze-dzis/domain"
 	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
 )
@@ -17,16 +18,20 @@ const (
 )
 
 type BurzeDzisClient struct {
-	apiKey     string
-	host       string
-	httpClient *http.Client
+	apiKey          string
+	host            string
+	httpClient      *http.Client
+	requestModifier requestmod.RequestModifier
 }
 
 func NewClient(client *http.Client, apiKey string, host string) *BurzeDzisClient {
+	requestModifier := requestmod.NewRequestModifier()
+
 	return &BurzeDzisClient{
-		apiKey:     apiKey,
-		host:       host,
-		httpClient: client,
+		apiKey:          apiKey,
+		host:            host,
+		httpClient:      client,
+		requestModifier: requestModifier,
 	}
 }
 
@@ -35,6 +40,7 @@ func (c *BurzeDzisClient) IsValidKey(ctx context.Context, keyReq vxml.APIKeyRequ
 	if err != nil {
 		return false, err
 	}
+	data = c.requestModifier.ModifyRequest(data)
 	response, err := c.makeRequest(ctx, data)
 	if err != nil {
 		return false, fmt.Errorf("IsValidKey: make a request: %v", err)
@@ -50,8 +56,7 @@ func (c *BurzeDzisClient) IsValidKey(ctx context.Context, keyReq vxml.APIKeyRequ
 	if err := xml.Unmarshal(rawResponse, &responseData); err != nil {
 		return false, fmt.Errorf("IsValidKey: unmarshall a response: %v", err)
 	}
-	return responseData.Body.IsValid, nil
-
+	return responseData.Envelope.Body.KeyAPIResponse.Return, nil
 }
 
 func (c *BurzeDzisClient) CityLocation(ctx context.Context, locationReq vxml.CityLocationRequest) (domain.CityLocation, error) {
