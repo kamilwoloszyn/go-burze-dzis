@@ -1,13 +1,15 @@
 package vxml
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 type APIKeyRequest struct {
-	XMLName xml.Name `xml:"Envelope"`
-	Body    struct {
+	Envelope xml.Name `xml:"Envelope"`
+	Body     struct {
 		XMLName xml.Name `xml:"KeyAPI"`
 		Key     string   `xml:"klucz"`
-	} `xml:"Body"`
+	}
 }
 
 func NewAPIKeyRequest(APIKey string) APIKeyRequest {
