@@ -24,6 +24,16 @@ var DefinitionAttrs = []AttrMod{
 		AttrName: "xmlns",
 		Value:    SoapURL,
 	},
+	{
+		Name:     "szukaj_burzy",
+		AttrName: "xmlns",
+		Value:    SoapURL,
+	},
+	{
+		Name:     "ostrzezenia_pogodowe",
+		AttrName: "xmlns",
+		Value:    SoapURL,
+	},
 }
 
 // Removes all structs names included by xml encoder
@@ -36,5 +46,11 @@ var DefinitonRemoveParams = []AttrMod{
 	},
 	{
 		Name: "CitiesRequest",
+	},
+	{
+		Name: "StormSearchRequest",
+	},
+	{
+		Name: "WeatherAlertRequest",
 	},
 }
