@@ -14,11 +14,27 @@ var DefinitionAttrs = []AttrMod{
 		AttrName: "xmlns",
 		Value:    SoapURL,
 	},
+	{
+		Name:     "miejscowosc",
+		AttrName: "xmlns",
+		Value:    SoapURL,
+	},
+	{
+		Name:     "miejscowosci_lista",
+		AttrName: "xmlns",
+		Value:    SoapURL,
+	},
 }
 
 // Removes all structs names included by xml encoder
 var DefinitonRemoveParams = []AttrMod{
 	{
 		Name: "APIKeyRequest",
+	},
+	{
+		Name: "CityLocationRequest",
+	},
+	{
+		Name: "CitiesRequest",
 	},
 }
