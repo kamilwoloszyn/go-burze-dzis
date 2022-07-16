@@ -1,10 +1,10 @@
 package domain
 
 type CityLocation struct {
-	CoordX float32 `xml:"x"`
-	CoordY float32 `xml:"y"`
+	CoordX float32
+	CoordY float32
 }
 
 type Cities struct {
-	Cities []string `xml:"miejscowosci_listaResponse"`
+	Cities []string
 }
