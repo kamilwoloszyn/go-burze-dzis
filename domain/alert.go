@@ -10,6 +10,7 @@ const (
 	AlertNameWind         = "Wind"
 	AlertNameThunderStorm = "Thunerstorm"
 	AlertNameCyclone      = "Cyclone"
+	AlertNameRain         = "Rain"
 )
 
 type WeatherAlert struct {
