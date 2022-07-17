@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/kamilwoloszyn/burze-dzis/app"
 	"github.com/kamilwoloszyn/burze-dzis/app/requestmod"
 	"github.com/kamilwoloszyn/burze-dzis/domain"
 	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
@@ -20,7 +21,7 @@ const (
 type BurzeDzisClient struct {
 	apiKey          string
 	host            string
-	httpClient      *http.Client
+	httpClient      app.HTTPDoer
 	requestModifier requestmod.RequestModifier
 }
 
