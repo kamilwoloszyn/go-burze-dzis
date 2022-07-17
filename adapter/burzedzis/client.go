@@ -25,7 +25,7 @@ type BurzeDzisClient struct {
 	requestModifier requestmod.RequestModifier
 }
 
-func NewClient(client *http.Client, apiKey string, host string) *BurzeDzisClient {
+func NewClient(client app.HTTPDoer, apiKey string, host string) *BurzeDzisClient {
 	requestModifier := requestmod.NewRequestModifier()
 
 	return &BurzeDzisClient{
