@@ -46,10 +46,11 @@ func (c *CitiesResponse) ToCities() domain.Cities {
 	response := c.Body.List.Return
 	response = strings.ReplaceAll(response, "[", "")
 	response = strings.ReplaceAll(response, "]", "")
+	response = strings.ReplaceAll(response, " \"", "")
 	response = strings.ReplaceAll(response, "\"", "")
 
 	cities := strings.Split(response, CitiesResponseSeparator)
-	if len(cities) < 2 {
+	if len(cities) < 2 || len(cities) >= 2 && cities[1] == "" {
 		return domain.Cities{}
 	}
 	// make from 1st position, because the first element is always a keyword you search for
