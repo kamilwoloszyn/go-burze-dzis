@@ -74,10 +74,10 @@ func (s *Service) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRe
 			),
 		)
 		if err != nil {
-			return nil, fmt.Errorf("StormSearch: couldn't obtain a city coords: %v", err)
+			return nil, fmt.Errorf("WeatherAlert: couldn't obtain a city coords: %v", err)
 		}
 		if equal := reflect.DeepEqual(cityLocation, domain.CityLocation{}); equal {
-			return nil, fmt.Errorf("StormSearch: wrong coords received. Is a provided city correct ? ")
+			return nil, fmt.Errorf("WeatherAlert: wrong coords received. Is a provided city correct ? ")
 		}
 		alertReq.Body.WeatherAlert.CoordY = cityLocation.CoordY
 		alertReq.Body.WeatherAlert.CoordX = cityLocation.CoordX
