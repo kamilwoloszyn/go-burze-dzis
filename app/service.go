@@ -8,29 +8,29 @@ import (
 	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
 )
 
-type service struct {
+type Service struct {
 	burzeDzisClient BurzeDzis
 }
 
-func NewService(burzeDzisClient BurzeDzis) *service {
-	return &service{
+func NewService(burzeDzisClient BurzeDzis) *Service {
+	return &Service{
 		burzeDzisClient: burzeDzisClient,
 	}
 }
 
-func (s *service) IsValidKey(ctx context.Context, keyReq vxml.APIKeyRequest) (bool, error) {
+func (s *Service) IsValidKey(ctx context.Context, keyReq vxml.APIKeyRequest) (bool, error) {
 	return s.burzeDzisClient.IsValidKey(ctx, keyReq)
 }
 
-func (s *service) CityLocation(ctx context.Context, locationReq vxml.CityLocationRequest) (domain.CityLocation, error) {
+func (s *Service) CityLocation(ctx context.Context, locationReq vxml.CityLocationRequest) (domain.CityLocation, error) {
 	return s.burzeDzisClient.CityLocation(ctx, locationReq)
 }
 
-func (s *service) Cities(ctx context.Context, citiesReq vxml.CitiesRequest) (domain.Cities, error) {
+func (s *Service) Cities(ctx context.Context, citiesReq vxml.CitiesRequest) (domain.Cities, error) {
 	return s.burzeDzisClient.Cities(ctx, citiesReq)
 }
 
-func (s *service) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequest) (domain.Storm, error) {
+func (s *Service) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequest) (domain.Storm, error) {
 	if stormReq.Body.StormSearch.CityName != "" {
 		cityLocation, err := s.CityLocation(
 			ctx,
@@ -48,7 +48,7 @@ func (s *service) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequ
 	return s.burzeDzisClient.StormSearch(ctx, stormReq)
 }
 
-func (s *service) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRequest) ([]domain.Alert, error) {
+func (s *Service) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRequest) ([]domain.Alert, error) {
 	if alertReq.Body.WeatherAlert.CityName != "" {
 		cityLocation, err := s.CityLocation(
 			ctx,

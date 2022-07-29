@@ -1,4 +1,4 @@
-package burzedzis_test
+package burzedzisnet_test
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kamilwoloszyn/burze-dzis/adapter/burzedzis"
+	"github.com/kamilwoloszyn/burze-dzis/adapter/burzedzisnet"
 	"github.com/kamilwoloszyn/burze-dzis/domain"
 	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
 	"github.com/kamilwoloszyn/burze-dzis/generics"
@@ -111,7 +111,7 @@ func TestIsValidKey(t *testing.T) {
 					return tt.mockedHTTPResponse, nil
 				},
 			}
-			client := burzedzis.NewClient(mockedHTTP, apiKey, host)
+			client := burzedzisnet.NewClient(mockedHTTP, apiKey, host)
 			valid, err := client.IsValidKey(
 				ctx,
 				tt.request,
@@ -209,7 +209,7 @@ func TestCityLocation(t *testing.T) {
 					return tt.mockedHTTPResponse, nil
 				},
 			}
-			client := burzedzis.NewClient(mockedHTTP, apiKey, host)
+			client := burzedzisnet.NewClient(mockedHTTP, apiKey, host)
 			result, err := client.CityLocation(ctx, tt.request)
 			if err != nil && !tt.expectedErr {
 				t.Errorf("unexpected err %v in %s", err, tt.name)
@@ -332,7 +332,7 @@ func TestCities(t *testing.T) {
 					return tt.mockedHTTPResponse, nil
 				},
 			}
-			client := burzedzis.NewClient(mockedHTTP, apiKey, host)
+			client := burzedzisnet.NewClient(mockedHTTP, apiKey, host)
 			result, err := client.Cities(ctx, tt.request)
 			if err != nil && !tt.expectedErr {
 				t.Errorf("unexpected err %v in %s", err, tt.name)
@@ -422,7 +422,7 @@ func TestStormSearch(t *testing.T) {
 					return tt.mockedHTTPResponse, nil
 				},
 			}
-			client := burzedzis.NewClient(mockedHTTP, apiKey, host)
+			client := burzedzisnet.NewClient(mockedHTTP, apiKey, host)
 			result, err := client.StormSearch(ctx, tt.request)
 			if err != nil && !tt.expectedErr {
 				t.Errorf("unexpected err %v in %s", err, tt.name)
@@ -531,7 +531,7 @@ func WeatherAlert(t *testing.T) {
 					return tt.mockedHTTPResponse, nil
 				},
 			}
-			client := burzedzis.NewClient(mockedHTTP, apiKey, host)
+			client := burzedzisnet.NewClient(mockedHTTP, apiKey, host)
 			result, err := client.WeatherAlert(ctx, tt.request)
 			if err != nil && !tt.expectedErr {
 				t.Errorf("unexpected err %v in %s", err, tt.name)

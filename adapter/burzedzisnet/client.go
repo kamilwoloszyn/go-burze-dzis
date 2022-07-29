@@ -1,4 +1,4 @@
-package burzedzis
+package burzedzisnet
 
 import (
 	"bytes"
