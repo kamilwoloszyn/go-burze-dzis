@@ -5,12 +5,15 @@ import (
 	"strings"
 )
 
+// RequestModifier store some rules that ensure the request will be parsed correctly via WDSL.
 type RequestModifier struct {
 	head     *AttrMod
 	attrMods *[]AttrMod
 	toRemove *[]AttrMod
 }
 
+// NewRequestModifier creates a new definitions for the request modifier.
+// All definitions are located in definition.go
 func NewRequestModifier() RequestModifier {
 	return RequestModifier{
 		head:     &DefinitionHead,
@@ -19,6 +22,8 @@ func NewRequestModifier() RequestModifier {
 	}
 }
 
+// ModifyRequest inject some rules to the request in order to fix 500 internal
+// error returning from burzedzis client API.
 func (r *RequestModifier) ModifyRequest(xmlResultByte []byte) []byte {
 	xmlResultString := string(xmlResultByte)
 	if r.attrMods != nil && len(*r.attrMods) > 0 {
@@ -73,6 +78,7 @@ func (r *RequestModifier) ModifyRequest(xmlResultByte []byte) []byte {
 	return []byte(xmlResultString)
 }
 
+// A simple model of attribute used in RequestModifier
 type AttrMod struct {
 	Name     string
 	AttrName string
