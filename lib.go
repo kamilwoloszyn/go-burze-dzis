@@ -43,13 +43,13 @@ func (b *BurzeDzisClient) Cities(ctx context.Context, citiesReq vxml.CitiesReque
 }
 
 // StormSearch returns some data about thunderstorm in / arround the provided city.
-// If the city doesn't exist, expect empty response.
+// If the city doesn't exist, expect an error.
 func (b *BurzeDzisClient) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequest) (domain.Storm, error) {
 	return b.s.StormSearch(ctx, stormReq)
 }
 
 // WeatherAlert returns weather alerts based on a provided city. If the city does't exist
-// expect an empty response.
+// expect an error.
 func (b *BurzeDzisClient) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRequest) ([]domain.Alert, error) {
 	return b.s.WeatherAlert(ctx, alertReq)
 }

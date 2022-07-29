@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"reflect"
 
 	"github.com/kamilwoloszyn/burze-dzis/domain"
 	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
@@ -39,7 +40,7 @@ func (s *Service) Cities(ctx context.Context, citiesReq vxml.CitiesRequest) (dom
 }
 
 // StormSearch returns some data about thunderstorm in / arround the provided city.
-// If the city doesn't exist, expect empty response.
+// If the city doesn't exist, expect an error.
 func (s *Service) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequest) (domain.Storm, error) {
 	if stormReq.Body.StormSearch.CityName != "" {
 		cityLocation, err := s.CityLocation(
@@ -52,6 +53,9 @@ func (s *Service) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequ
 		if err != nil {
 			return domain.Storm{}, fmt.Errorf("StormSearch: couldn't obtain a city coords: %v", err)
 		}
+		if equal := reflect.DeepEqual(cityLocation, domain.CityLocation{}); equal {
+			return domain.Storm{}, fmt.Errorf("StormSearch: wrong coords received. Is a provided city correct ? ")
+		}
 		stormReq.Body.StormSearch.CoordY = cityLocation.CoordY
 		stormReq.Body.StormSearch.CoordX = cityLocation.CoordX
 	}
@@ -59,7 +63,7 @@ func (s *Service) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequ
 }
 
 // WeatherAlert returns weather alerts based on a provided city. If the city does't exist
-// expect an empty response.
+// expect an error.
 func (s *Service) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRequest) ([]domain.Alert, error) {
 	if alertReq.Body.WeatherAlert.CityName != "" {
 		cityLocation, err := s.CityLocation(
@@ -71,6 +75,9 @@ func (s *Service) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRe
 		)
 		if err != nil {
 			return nil, fmt.Errorf("StormSearch: couldn't obtain a city coords: %v", err)
+		}
+		if equal := reflect.DeepEqual(cityLocation, domain.CityLocation{}); equal {
+			return nil, fmt.Errorf("StormSearch: wrong coords received. Is a provided city correct ? ")
 		}
 		alertReq.Body.WeatherAlert.CoordY = cityLocation.CoordY
 		alertReq.Body.WeatherAlert.CoordX = cityLocation.CoordX
