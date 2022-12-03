@@ -36,7 +36,8 @@ func NewClient(client app.HTTPDoer, apiKey string, host string) *BurzeDzisClient
 	}
 }
 
-func (c *BurzeDzisClient) IsValidKey(ctx context.Context, keyReq vxml.APIKeyRequest) (bool, error) {
+func (c *BurzeDzisClient) IsValidKey(ctx context.Context, apiKey string) (bool, error) {
+	keyReq := vxml.NewAPIKeyRequest(apiKey)
 	data, err := xml.Marshal(keyReq)
 	if err != nil {
 		return false, err
@@ -60,7 +61,8 @@ func (c *BurzeDzisClient) IsValidKey(ctx context.Context, keyReq vxml.APIKeyRequ
 	return responseData.Body.KeyAPIResponse.Return, nil
 }
 
-func (c *BurzeDzisClient) CityLocation(ctx context.Context, locationReq vxml.CityLocationRequest) (domain.CityLocation, error) {
+func (c *BurzeDzisClient) CityLocation(ctx context.Context, searchData app.SearchData) (domain.CityLocation, error) {
+	locationReq := vxml.NewCityLocationRequest(searchData.CityName, &c.apiKey)
 	data, err := xml.Marshal(locationReq)
 	if err != nil {
 		return domain.CityLocation{}, err
@@ -84,7 +86,8 @@ func (c *BurzeDzisClient) CityLocation(ctx context.Context, locationReq vxml.Cit
 	return responseData.ToCityLocation(), nil
 }
 
-func (c *BurzeDzisClient) Cities(ctx context.Context, citiesReq vxml.CitiesRequest) (domain.Cities, error) {
+func (c *BurzeDzisClient) Cities(ctx context.Context, searchData app.SearchData) (domain.Cities, error) {
+	citiesReq := vxml.NewCitiesRequest(searchData.CityKeyword, searchData.CountryCode, &c.apiKey)
 	data, err := xml.Marshal(citiesReq)
 	if err != nil {
 		return domain.Cities{}, err
@@ -108,7 +111,8 @@ func (c *BurzeDzisClient) Cities(ctx context.Context, citiesReq vxml.CitiesReque
 	return responseData.ToCities(), nil
 }
 
-func (c *BurzeDzisClient) StormSearch(ctx context.Context, stormReq vxml.StormSearchRequest) (domain.Storm, error) {
+func (c *BurzeDzisClient) StormSearch(ctx context.Context, searchData app.SearchData) (domain.Storm, error) {
+	stormReq := vxml.NewStormSearchRequest(searchData.CityName, searchData.Radius, &c.apiKey)
 	data, err := xml.Marshal(stormReq)
 	if err != nil {
 		return domain.Storm{}, err
@@ -132,7 +136,8 @@ func (c *BurzeDzisClient) StormSearch(ctx context.Context, stormReq vxml.StormSe
 	return responseData.ToStorm(), nil
 }
 
-func (c *BurzeDzisClient) WeatherAlert(ctx context.Context, alertReq vxml.WeatherAlertRequest) ([]domain.Alert, error) {
+func (c *BurzeDzisClient) WeatherAlert(ctx context.Context, searchData app.SearchData) ([]domain.Alert, error) {
+	alertReq := vxml.NewWeatherAlertRequest(searchData.CityName, &c.apiKey)
 	data, err := xml.Marshal(alertReq)
 	if err != nil {
 		return []domain.Alert{}, err
