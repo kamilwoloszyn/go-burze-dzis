@@ -33,8 +33,9 @@ func main() {
 
 	valid, err := burzedzisClient.IsValidKey(
 		ctx,
-		vxml.NewAPIKeyRequest(config.APIKey),
+		"<YOUR_API_KEY>",
 	)
+
 	if err != nil {
 		log.Printf("got an error during checking key validity: %v", err)
 	}
@@ -42,7 +43,7 @@ func main() {
 
 	cityLocation, err := burzedzisClient.CityLocation(
 		ctx,
-		vxml.NewCityLocationRequest("Oleszyce", &config.APIKey),
+		"Warszawa",
 	)
 	if err != nil {
 		log.Printf("got an error during getting a city location: %v", err)
@@ -51,7 +52,8 @@ func main() {
 	
 	citiesSuggestion, err := burzedzisClient.Cities(
 		ctx,
-		vxml.NewCitiesRequest("Ole", "PL", &config.APIKey),
+		"War",
+		"PL",
 	)
 	if err != nil {
 		log.Printf("got an error during getting a city suggestions: %v", err)
@@ -60,11 +62,8 @@ func main() {
 	
 	storm, err := burzedzisClient.StormSearch(
 		ctx,
-		vxml.NewStormSearchRequest(
-			"Warszawa",
-			100,
-			&config.APIKey,
-		),
+		"Warszawa",
+		15,
 	)
 	if err != nil {
 		log.Printf("got an err during getting a storm: %v", err)
@@ -73,10 +72,7 @@ func main() {
 
 	alerts, err := burzedzisClient.WeatherAlert(
 		ctx,
-		vxml.NewWeatherAlertRequest(
-			"Warszawa",
-			&config.APIKey,
-		),
+		"Warszawa",
 	)
 	if err != nil {
 		log.Printf("got an err during getting alerts: %v", err)

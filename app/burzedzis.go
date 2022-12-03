@@ -4,13 +4,12 @@ import (
 	"context"
 
 	"github.com/kamilwoloszyn/burze-dzis/domain"
-	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
 )
 
-type BurzeDzis interface {
-	IsValidKey(context.Context, vxml.APIKeyRequest) (bool, error)
-	CityLocation(context.Context, vxml.CityLocationRequest) (domain.CityLocation, error)
-	Cities(context.Context, vxml.CitiesRequest) (domain.Cities, error)
-	StormSearch(context.Context, vxml.StormSearchRequest) (domain.Storm, error)
-	WeatherAlert(context.Context, vxml.WeatherAlertRequest) ([]domain.Alert, error)
+type BurzeDzisService interface {
+	IsValidKey(ctx context.Context, key string) (bool, error)
+	CityLocation(ctx context.Context, searchData SearchData) (domain.CityLocation, error)
+	Cities(ctx context.Context, searchData SearchData) (domain.Cities, error)
+	StormSearch(ctx context.Context, searchData SearchData) (domain.Storm, error)
+	WeatherAlert(ctx context.Context, searchData SearchData) ([]domain.Alert, error)
 }

@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	"github.com/kamilwoloszyn/burze-dzis/adapter/burzedzisnet"
+	"github.com/kamilwoloszyn/burze-dzis/app"
 	"github.com/kamilwoloszyn/burze-dzis/domain"
-	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
 	"github.com/kamilwoloszyn/burze-dzis/generics"
 	"github.com/kamilwoloszyn/burze-dzis/mock"
 )
@@ -23,7 +23,7 @@ const (
 func TestIsValidKey(t *testing.T) {
 	testCases := []struct {
 		name                string
-		request             vxml.APIKeyRequest
+		request             string
 		mockedHTTPResponse  *http.Response
 		expectedRequestBody *string
 		expectedResult      bool
@@ -31,7 +31,7 @@ func TestIsValidKey(t *testing.T) {
 	}{
 		{
 			name:    "valid key",
-			request: vxml.NewAPIKeyRequest(apiKey),
+			request: apiKey,
 			mockedHTTPResponse: &http.Response{
 				Status:     "200 OK",
 				StatusCode: 200,
@@ -130,7 +130,7 @@ func TestIsValidKey(t *testing.T) {
 func TestCityLocation(t *testing.T) {
 	testCases := []struct {
 		name                string
-		request             vxml.CityLocationRequest
+		request             app.SearchData
 		mockedHTTPResponse  *http.Response
 		expectedRequestBody *string
 		expectedResult      domain.CityLocation
@@ -138,10 +138,9 @@ func TestCityLocation(t *testing.T) {
 	}{
 		{
 			name: "a valid response",
-			request: vxml.NewCityLocationRequest(
-				"Zadupie",
-				generics.Ptr(apiKey),
-			),
+			request: app.SearchData{
+				CityName: "Zadupie",
+			},
 			mockedHTTPResponse: &http.Response{
 				Status:     "200 OK",
 				StatusCode: 200,
@@ -171,10 +170,9 @@ func TestCityLocation(t *testing.T) {
 		},
 		{
 			name: "a wrong response",
-			request: vxml.NewCityLocationRequest(
-				"Zadupie Wielkie",
-				nil,
-			),
+			request: app.SearchData{
+				CityName: "Zadupie Wielkie",
+			},
 			mockedHTTPResponse: &http.Response{
 				Status:     "500 Internal Server Error",
 				StatusCode: 500,
@@ -224,7 +222,7 @@ func TestCityLocation(t *testing.T) {
 func TestCities(t *testing.T) {
 	testCases := []struct {
 		name                string
-		request             vxml.CitiesRequest
+		request             app.SearchData
 		mockedHTTPResponse  *http.Response
 		expectedRequestBody *string
 		expectedResult      domain.Cities
@@ -232,11 +230,10 @@ func TestCities(t *testing.T) {
 	}{
 		{
 			name: "a valid response",
-			request: vxml.NewCitiesRequest(
-				"Ole",
-				"PL",
-				generics.Ptr(apiKey),
-			),
+			request: app.SearchData{
+				CityKeyword: "Ole",
+				CountryCode: "PL",
+			},
 			mockedHTTPResponse: &http.Response{
 				Status:     "200 OK",
 				StatusCode: 200,
@@ -270,11 +267,10 @@ func TestCities(t *testing.T) {
 		},
 		{
 			name: "an empty response",
-			request: vxml.NewCitiesRequest(
-				"Oleee",
-				"PL",
-				generics.Ptr(apiKey),
-			),
+			request: app.SearchData{
+				CityName:    "Oleee",
+				CityKeyword: "PL",
+			},
 			mockedHTTPResponse: &http.Response{
 				Status:     "200 OK",
 				StatusCode: 200,
@@ -347,15 +343,18 @@ func TestCities(t *testing.T) {
 func TestStormSearch(t *testing.T) {
 	testCases := []struct {
 		name                string
-		request             vxml.StormSearchRequest
+		request             app.SearchData
 		mockedHTTPResponse  *http.Response
 		expectedRequestBody *string
 		expectedResult      domain.Storm
 		expectedErr         bool
 	}{
 		{
-			name:    "valid response",
-			request: vxml.NewStormSearchRequest("Zadupie Wielkie", 10, generics.Ptr(apiKey)),
+			name: "valid response",
+			request: app.SearchData{
+				CityName: "Zadupie Wielkie",
+				Radius:   10,
+			},
 			mockedHTTPResponse: &http.Response{
 				Status:     "200 OK",
 				StatusCode: 200,
@@ -437,15 +436,17 @@ func TestStormSearch(t *testing.T) {
 func WeatherAlert(t *testing.T) {
 	testCases := []struct {
 		name                string
-		request             vxml.WeatherAlertRequest
+		request             app.SearchData
 		mockedHTTPResponse  *http.Response
 		expectedRequestBody *string
 		expectedResult      domain.WeatherAlert
 		expectedErr         bool
 	}{
 		{
-			name:    "valid response",
-			request: vxml.NewWeatherAlertRequest("Zadupie Wielkie", generics.Ptr(apiKey)),
+			name: "valid response",
+			request: app.SearchData{
+				CityName: "Zadupie Wielkie",
+			},
 			mockedHTTPResponse: &http.Response{
 				Status:     "200 OK",
 				StatusCode: 200,
