@@ -8,10 +8,10 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/kamilwoloszyn/burze-dzis/app"
-	"github.com/kamilwoloszyn/burze-dzis/app/requestmod"
-	"github.com/kamilwoloszyn/burze-dzis/domain"
-	"github.com/kamilwoloszyn/burze-dzis/domain/vxml"
+	"github.com/kamilwoloszyn/go-burze-dzis/app"
+	"github.com/kamilwoloszyn/go-burze-dzis/app/requestmod"
+	"github.com/kamilwoloszyn/go-burze-dzis/domain"
+	"github.com/kamilwoloszyn/go-burze-dzis/domain/vxml"
 )
 
 const (

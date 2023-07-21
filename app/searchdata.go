@@ -1,6 +1,6 @@
 package app
 
-import "github.com/kamilwoloszyn/burze-dzis/domain"
+import "github.com/kamilwoloszyn/go-burze-dzis/domain"
 
 // SearchData is internal representation of data, can be modified by layers.
 type SearchData struct {

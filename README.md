@@ -4,12 +4,18 @@ A golang client for burze.dzis.net
 # Quick start
 
 ```
-go get -u github.com/kamilwoloszyn/burze-dzis
+go get -u github.com/kamilwoloszyn/go-burze-dzis
 ```
 
 Then, you can start using the client:
 
 ```
+
+import(
+	"fmt"
+	burzedzis "github.com/kamilwoloszyn/go-burze-dzis"
+)
+
 func main() {
 	config := config.NewConfig(
 		"<YOUR_API_KEY>",

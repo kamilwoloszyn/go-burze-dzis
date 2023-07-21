@@ -1,3 +1,3 @@
-module github.com/kamilwoloszyn/burze-dzis
+module github.com/kamilwoloszyn/go-burze-dzis
 
 go 1.18
