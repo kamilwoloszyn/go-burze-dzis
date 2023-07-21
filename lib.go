@@ -3,9 +3,9 @@ package burzedzis
 import (
 	"context"
 
-	"github.com/kamilwoloszyn/burze-dzis/adapter/burzedzisnet"
-	"github.com/kamilwoloszyn/burze-dzis/app"
-	"github.com/kamilwoloszyn/burze-dzis/domain"
+	"github.com/kamilwoloszyn/go-burze-dzis/adapter/burzedzisnet"
+	"github.com/kamilwoloszyn/go-burze-dzis/app"
+	"github.com/kamilwoloszyn/go-burze-dzis/domain"
 )
 
 // Service contains all components necessary to run app properly.

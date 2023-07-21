@@ -3,7 +3,7 @@ package app
 import (
 	"context"
 
-	"github.com/kamilwoloszyn/burze-dzis/domain"
+	"github.com/kamilwoloszyn/go-burze-dzis/domain"
 )
 
 type BurzeDzisService interface {

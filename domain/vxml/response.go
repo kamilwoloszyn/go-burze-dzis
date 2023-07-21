@@ -3,7 +3,7 @@ package vxml
 import (
 	"strings"
 
-	"github.com/kamilwoloszyn/burze-dzis/domain"
+	"github.com/kamilwoloszyn/go-burze-dzis/domain"
 )
 
 const CitiesResponseSeparator = ","

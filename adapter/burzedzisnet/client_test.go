@@ -8,11 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kamilwoloszyn/burze-dzis/adapter/burzedzisnet"
-	"github.com/kamilwoloszyn/burze-dzis/app"
-	"github.com/kamilwoloszyn/burze-dzis/domain"
-	"github.com/kamilwoloszyn/burze-dzis/generics"
-	"github.com/kamilwoloszyn/burze-dzis/mock"
+	"github.com/kamilwoloszyn/go-burze-dzis/adapter/burzedzisnet"
+	"github.com/kamilwoloszyn/go-burze-dzis/app"
+	"github.com/kamilwoloszyn/go-burze-dzis/domain"
+	"github.com/kamilwoloszyn/go-burze-dzis/generics"
+	"github.com/kamilwoloszyn/go-burze-dzis/mock"
 )
 
 const (
